@@ -40,14 +40,13 @@ export const signin = async(req, res)=>{
      const comparedPassword = bcryptjs.compareSync(req.body.password , user.password)
      if(!comparedPassword){return res.status(401).json("wrong credentials")}
 
-     const token =  jwt.sign({id:user.id}, process.env.JWT_SECRET )
+     const token =  jwt.sign({id:user._id}, process.env.JWT_SECRET )
     
      
      const { password, ...rest } = user._doc;
       res.cookie("access_token", token, {
         sameSite : "none",
         secure: true,
-        domain: "https://real-estate-76ud.onrender.com/",
         httpOnly: true
         }).status(200).json(rest)
     } catch (error) {
@@ -61,14 +60,13 @@ export const google = async (req, res)=>{
 try {
     const user = await User.findOne({email:req.body.email})
     if(user)
-   { const token = jwt.sign({id:user.id}, process.env.JWT_SECRET)
+   { const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
   
 
     const { password, ...rest } = user._doc;
     res.cookie("access_token", token, {
         sameSite : "none",
         secure: true,
-        domain: "https://real-estate-76ud.onrender.com/",
         httpOnly: true
         }).status(200).json(rest)}
 
@@ -87,12 +85,11 @@ try {
 
         })
         await newUser.save();
-        const token = jwt.sign({id:newUser.id}, process.env.JWT_SECRET)
+        const token = jwt.sign({id:newUser._id}, process.env.JWT_SECRET)
     const { password, ...rest } = newUser._doc;
     res.cookie("access_token", token, {
         sameSite : "none",
         secure: true,
-        domain: "https://real-estate-76ud.onrender.com/",
         httpOnly: true
         }).status(200).json(rest)
     }

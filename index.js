@@ -20,6 +20,7 @@ app.use(express.json())
 
 app.use(cors({
   origin: 'https://real-estate-76ud.onrender.com' , 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
 
