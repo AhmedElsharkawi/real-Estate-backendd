@@ -44,7 +44,12 @@ export const signin = async(req, res)=>{
     
      
      const { password, ...rest } = user._doc;
-      res.cookie("access_token", token, {httpOnly:true}).status(200).json(rest)
+      res.cookie("access_token", token, {
+        sameSite : "none",
+        secure: true,
+        domain: "https://real-estate-76ud.onrender.com/",
+        httpOnly: true
+        }).status(200).json(rest)
     } catch (error) {
      
         res.status(500).json({ msg: "Internal Server Error" });
@@ -60,7 +65,12 @@ try {
   
 
     const { password, ...rest } = user._doc;
-    res.cookie("access_token",token,{httpOnly:true}).status(200).json(rest)}
+    res.cookie("access_token", token, {
+        sameSite : "none",
+        secure: true,
+        domain: "https://real-estate-76ud.onrender.com/",
+        httpOnly: true
+        }).status(200).json(rest)}
 
     if(!user){
         const generatedpassword = 
@@ -79,7 +89,12 @@ try {
         await newUser.save();
         const token = jwt.sign({id:newUser.id}, process.env.JWT_SECRET)
     const { password, ...rest } = newUser._doc;
-     res.cookie("access_token",token,{httpOnly:true}).status(200).json(rest)
+    res.cookie("access_token", token, {
+        sameSite : "none",
+        secure: true,
+        domain: "https://real-estate-76ud.onrender.com/",
+        httpOnly: true
+        }).status(200).json(rest)
     }
 
 
